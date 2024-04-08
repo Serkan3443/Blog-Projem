@@ -1,0 +1,74 @@
+﻿@using GridMvc.Html
+
+@model List<BlogSitem.DLL.BlogSiteDatabase.Makaleler>
+
+
+
+
+@section addTopLibrary{
+    <!--Grid.MVC için gerekli olan kütüphaneler aşağıdaki gibidir-->
+    <link href="~/Content/Gridmvc.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-2.1.4.js" integrity="sha256-siFczlgw4jULnUICcdm9gjQPZkw/YPDqhQ9+nAOScE4=" crossorigin="anonymous"></script><!--İnterntten hazır olarak alındı bu kod-->
+    <script src="~/Scripts/gridmvc.js"></script>
+}
+
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">@Html.ActionLink("Makale Ekle", "#", "", new { @class = "btn btn-block btn-success col-md-5" })</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Makale</a></li>
+                    <li class="breadcrumb-item active">Makale Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        
+                        @Html.Grid(Model).Columns(col =>
+                        {
+                            col.Add(m => m.MakalelerID).Titled("ID").Sortable(true);//Sortable(true) tıklanabilir özelliğini gösterir
+                            //Titled("ID")=>başlık olarak ID yazar
+                            col.Add(m => m.MakaleBaslik).Titled("Başlık").Sortable(true).Filterable(true);//Filterable(true)=>Başlık kısmına filreleme özelliğini getirir.
+                            col.Add(m => m.AktifMi);
+                            col.Add(m => m.YayinlanmaTarihi);
+                            col.Add(m => m.MakaleKategorileri.KategoriAdi);
+                            col.Add(m => m.OnaylayanKullaniciID);
+
+                            //Güncelle için button oluşturma
+                            col.Add().Encoded(false).Sanitized(false).RenderValueAs(k =>
+                            {
+                                //string htmlbtn = Html.ActionLink("Güncelle", "ViewName", "ControllerName", new { @class = "btn btn-sm btn-warning" }).ToString();//bu button oluşturmanın birinci yoludur
+
+                                string htmbtn = "<a href='#' class='btn btn-sm btn-warning'><i class='fas fa-pencil-alt'></i>Güncelle</a>";//Bu da linkli buttom oluşturmanın 2.yoludur
+                                return htmbtn;
+                            });
+
+                            //Sil için button oluşturma
+                            col.Add().Encoded(false).Sanitized(false).RenderValueAs(k =>
+                            {
+                                //string htmlbtn = Html.ActionLink("Sil", "ViewName", "ControllerName", new { @class = "btn btn-sm btn-danger" }).ToString();//bu button oluşturmanın birinci yoludur
+
+                                string htmbtn = "<a href='#' class='btn btn-sm btn-danger'><i class='fas fa-trash'></i>Sil</a>";//Bu da linkli buttom oluşturmanın 2.yoludur
+                                return htmbtn;
+                            });
+
+                        }).WithPaging(10)<!--Bu ise kaç tane satır oluşturacağını belirler yani 10 tane satır oluşturacaktır-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

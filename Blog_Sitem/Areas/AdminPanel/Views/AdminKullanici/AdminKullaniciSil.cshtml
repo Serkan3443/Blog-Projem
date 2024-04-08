@@ -1,0 +1,46 @@
+﻿@model BlogSitem.DLL.BlogSiteDatabase.Kullanicilar
+
+@{
+    ViewBag.Title = "AdminKullaniciSil";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AdminKullaniciSil</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Kullanicilar</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.KullanicilarID)
+
+        
+
+       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AktifMi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AktifMi)
+                    @Html.ValidationMessageFor(model => model.AktifMi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Pasif Et" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

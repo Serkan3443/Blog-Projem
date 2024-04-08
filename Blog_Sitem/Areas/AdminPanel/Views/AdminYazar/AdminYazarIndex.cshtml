@@ -1,0 +1,97 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+
+@model List<Yazarlar>
+@{
+    ViewBag.Title = "AdminYazarIndex";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">@Html.ActionLink("Yeni Yazar Ekle", "AdminYazarEkle", "", new { @class = "btn btn-block btn-success col-md-5" })</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Yazarlar</a></li>
+                    <li class="breadcrumb-item active">Yazar Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!--Bu kodları AdminLTE klasöründen pages sayfasından contacts.html sayfasından kopyalayıp aldım ve gerekli düzenlemeleri yaptım fazlalıkları gereksiz olanları sildim en son hali bu şekilde-->
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <body class="hold-transition sidebar-mini">
+                            <section class="content">
+                                <!-- Default box -->
+                                <div class="card card-solid">
+                                    <div class="card-body pb-0">
+                                        <div class="row">
+                                            @foreach (var item in Model)
+                                            {
+
+                                                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                                                    <div class="card bg-light d-flex flex-fill">
+                                                        <div class="card-header text-muted border-bottom-0">
+                                                            @item.CalistigiFirma
+                                                        </div>
+                                                        <div class="card-body pt-0">
+                                                            <div class="row">
+                                                                <div class="col-7">
+                                                                    <h2 class="lead"><b>@item.YazarAdi @item.YazarSoyadi </b></h2>
+                                                                    <p class="text-muted text-sm"><b>Hakkında</b>@item.KisacaHakkinda</p>
+                                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Email Adresi:@item.Email</li>
+                                                                    </ul>
+
+                                                                    <ul class="bi bi-alarm">
+                                                                        <li class="small"><span><i class="fas fa-lg fa-building"></i></span>AktifMi:@item.AktifMi</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-5 text-center">
+                                                                    <img src="~/Areas/AdminPanel/AdminLTE/dist/img/yazar.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <div class="text-right">
+                                                                <a href="~/AdminPanel/AdminYazar/AdminYazarSil/@item.YazarlarID" class="btn btn-sm bg-danger">
+                                                                    <i class="fas fa-trash">Profili Sil</i>
+                                                                </a>
+                                                                <a href='~/AdminPanel/AdminYazar/AdminYazarGuncelle/@item.YazarlarID' class='btn btn-sm btn-warning' id="">
+                                                                    <i class="fas fa-pencil-alt"></i> Profili Güncelle
+                                                                </a>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card -->
+
+                            </section>
+                            <!-- /.content -->
+                            <!-- /.content-wrapper -->
+                        </body>
+                    </html>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

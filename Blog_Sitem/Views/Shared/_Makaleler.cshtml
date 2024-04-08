@@ -1,0 +1,38 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+
+<div class="col-md-9 col-sm-9 order-md-2">
+    <div class="row">
+
+        @foreach (var item in (List <Sp_MakaleListesiDOM>)TempData["makalelist"])//Sp_MakaleListesiDOM bunu verdim MakaleController sayfasında bunu tanımlamıştım ve bu classa göre verilerimi çağırıyorum
+        {
+
+
+            <div class="col-lg-4">
+                <div class="post-entry-1 border-bottom">
+                    <a href="/Makale/MakaleDetay/@item.MakalelerID"><img src="~/template/Moderna/assets/img/blog/blog-1.jpg" height="300" width="300" alt="" class="img-fluid"></a>
+                </div>
+
+                <div class="entry-meta">
+                    <ul>
+                        <li class="d-flex align-items-center" style="color:deepskyblue"><i class="bi bi-person"></i>@item.YazarAdSoyad</li>
+                        <li class="d-flex align-items-center" style="color:deepskyblue"><i class="bi bi-clock"></i><time datetime="2020-01-01">@item.YayinlanmaTarihi</time></li>
+                    </ul>
+                    <h3 class="mb-2"><a href="/Makale/MakaleDetay/@item.MakalelerID">@item.MakaleBaslik</a></h3>
+                </div>
+                @{ 
+                    string metin = item.MakaleIcerik;
+                    if (metin.Length>250)
+                    {
+                        metin = metin.Substring(0, 100);
+                    }
+                }
+                <p class="mb-4 d-block">@metin</p>
+                <div class="entry-content">
+                    <div class="read-more">
+                        <a href="blog-single.html">Devamını Oku</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

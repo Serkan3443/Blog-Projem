@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "AdminKullaniciEkle";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/AdminPanel/AdminKullanici/AdminKullaniciIndex" method="post">Kullanıcılar Listesi</a></li>
+                    <li class="breadcrumb-item active">Kullanıcı Ekle</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>g
+<!-- /.content-header -->
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- jquery validation -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Kullanıcı EKLE</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="YazarEkleForm" action="~/AdminPanel/AdminKullanici/AdminKullaniciEkle" method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Adı</label>
+                                <input type="text" name="Adi" id="Adi" value="" class="form-control" placeholder="Adı alanı" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Soyadı</label>
+                                <input type="text" name="Soyadi" id="Soyadi" value="" class="form-control" placeholder="Soyadı alanı" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kullanıcı Adı</label>
+                                <input type="text" name="kullaniciAdi" id="kullaniciAdi" value="" class="form-control" placeholder="Kullanıcı Adı alanı" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Şifre</label>
+                                <input type="text" name="sifre" id="sifre" value="" class="form-control" placeholder="Şifre alanı" />
+                            </div>
+
+                        </div>
+
+                        <div class="footer">
+                            <button type="submit" class="btn btn-success">Kullanıcı Ekle</button>
+                        </div>
+
+                        <div>
+                            @Html.Raw(ViewBag.mesaj)
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

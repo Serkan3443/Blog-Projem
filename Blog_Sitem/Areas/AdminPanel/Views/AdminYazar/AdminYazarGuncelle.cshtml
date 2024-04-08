@@ -1,0 +1,115 @@
+﻿@model BlogSitem.DLL.BlogSiteDatabase.Yazarlar
+
+@{
+    ViewBag.Title = "AdminYazarGuncelle";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">
+                </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/AdminPanel/AdminYazar/AdminYazarIndex">Yazarlar</a></li>
+                    <li class="breadcrumb-item active">Yazar Güncelle</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>Yazarlar</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.YazarlarID)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.YazarAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.YazarAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.YazarAdi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.YazarSoyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.YazarSoyadi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.YazarSoyadi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CalistigiFirma, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.CalistigiFirma, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CalistigiFirma, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label>Yaşadığı Şehir</label>
+                                        <select class="form-control select2" name="yasadigiSehir">
+                                            <option selected value="@Model.YazarlarID">@Model.YasadigiSehir</option>
+                                            @foreach (var item in ViewBag.yazarlar)
+                                            {
+                                                <option value="@item.YazarlarID">@item.YasadigiSehir</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AktifMi, htmlAttributes: new {@class="control-label col-md-2"})
+                                    <div class="col-md-2">
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.AktifMi)
+                                            @Html.ValidationMessageFor(model => model.AktifMi, "", new { @class = "tex-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Makale Güncelle" class="btn btn-warning" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

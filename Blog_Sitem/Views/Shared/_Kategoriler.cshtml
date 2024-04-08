@@ -1,0 +1,40 @@
+﻿<div class="aside-block">
+    <div class="sidebar">
+
+        <h3 class="sidebar-title">Ara</h3>
+        <div class="sidebar-item search-form">
+            <form action="">
+                <input type="text">
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End sidebar search formn-->
+
+        <h3 class="sidebar-title">Kategoriler</h3>
+        <div class="sidebar-item categories">
+            <ul>
+                @foreach (var item in (List<BlogSitem.DLL.BlogSiteDatabase.MakaleKategorileri>)TempData["makaleKategoriList"])
+                {
+                    <li><a onclick="KategoriMakale(''+@item.MakaleKategorileriID+'')" href="~/Makale/MakalelerIndex/@item.MakaleKategorileriID"><i class="bi bi-chevron-right"></i>@item.KategoriAdi</a></li>//Bu kategori adlarını Makaleler sayfasında göstermenin 1. yoludur
+                }
+
+                <!--Bunlar ise kategori adlarını Makaleler sayfasında göstermenin 2.yoludur tabi 1.yol daha az kod gerektiren ve tercih edilen yoldur-->
+                @*<li><a href="#">C#<span>(12)</span></a></li>
+                <li><a href="#">HTML<span>(5)</span></a></li>
+                <li><a href="#">CSS<span>(22)</span></a></li>
+                <li><a href="#">JQuery<span>(8)</span></a></li>
+                <li><a href="#">JavaScript<span>(14)</span></a></li>
+                <li><a href="#">ASP.NET MVC<span>(14)</span></a></li>
+                <li><a href="#">ASP.NET CORE<span>(14)</span></a></li>
+                <li><a href="#">MS-SQL SERVER<span>(14)</span></a></li>
+                <li><a href="#">MONGO DB<span>(14)</span></a></li>
+                <li><a href="#">REACT<span>(14)</span></a></li>
+                <li><a href="#">NODE JS<span>(14)</span></a></li>
+                <li><a href="#">DOCKER<span>(14)</span></a></li>
+                <li><a href="#">ELACTİC SEARCH<span>(14)</span></a></li>
+                <li><a href="#">API<span>(14)</span></a></li>
+                <li><a href="#">SERVİCE<span>(14)</span></a></li>*@
+            </ul>
+        </div><!-- End sidebar categories-->
+       
+    </div>
+</div>

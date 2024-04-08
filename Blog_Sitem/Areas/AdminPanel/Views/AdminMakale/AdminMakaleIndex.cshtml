@@ -1,0 +1,152 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+
+@model List<BlogSitem.DLL.BlogSiteDatabase.Sp_MakaleListesiDOM>
+@*//Bu modelii çağırmamın sebebi controller sayfasından kaydedip sql e gönderdiğim sp_MakaleListesi proceduredeki verileri bana burda listelemesi için*@
+
+
+@section addTopLibrary{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Theme style -->
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">@Html.ActionLink("Yeni Makale Ekle", "AdminMakaleEkle", "", new { @class = "btn btn-block btn-success col-md-5" })</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Makale</a></li>
+                    <li class="breadcrumb-item active">Makale Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="example1" class="table table-success table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Başlık</th>
+                                    <th>İçerik</th>
+                                    <th>Yayın Tarihi</th>
+                                    <th>AktifMi</th>
+                                    <th>Onaylayan Kullanıcı</th>
+                                    <th>Kategori Adı</th>
+                                    <th>Yazar</th>
+                                    <th>Güncelle</th>
+                                    <th>Sil</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.MakalelerID</td>
+                                        <td>@item.MakaleBaslik</td>
+
+
+                                        @{
+                                            string metin = item.MakaleIcerik;
+                                            if (metin.Length > 150)
+                                            {
+                                                metin = metin.Substring(0, 150);
+                                                <td>@metin @Html.ActionLink("Devamını Oku", "", "", new { @class = "btn btn-sm btn-primary" })</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@metin</td>
+                                            }
+                                        }
+
+
+                                        <td>@item.YayinlanmaTarihi</td>
+
+                                        <td>
+                                            @{
+                                                string durum = item.AktifMi == true ? "Evet" : "Hayır";
+                                            }@durum
+                                        </td>
+
+                                        <td>
+                                            @{
+                                                //BlogSitem.DLL.BlogSiteDatabase.ORMManager.BlogSitemDB db = new BlogSitem.DLL.BlogSiteDatabase.ORMManager.BlogSitemDB();
+                                                //int onaylayanID = item.OnaylayanKullaniciID;
+
+                                                //string adSoyad = db.Kullanicilar.Where(k => k.KullanicilarID == onaylayanID).FirstOrDefault().Adi + " " + db.Kullanicilar.Where(k => k.KullanicilarID == onaylayanID).FirstOrDefault().Soyadi;
+                                                //Yukarıdaki bu kod OOP yapısına,solid prensiplerine,yazılım ahlakına aykırı bir durum olarak değerlendirilir
+                                            }
+                                            @item.OnaylayanAdSoyad
+                                        </td>
+
+                                        <td>@item.KategoriAdi</td>
+                                        <td>@item.YazarAdSoyad</td>
+                                        <td>
+                                            @*@Html.ActionLink("Güncelle", "#", "", new { @class = "btn btn-block btn btn-warning" })*@
+                                        <a href='~/AdminPanel/AdminMakale/AdminMakaleGuncelle/@item.MakalelerID' class='btn btn-sm btn-warning' id="@item.MakalelerID"><i class='fas fa-pencil-alt'></i></a>
+                                            @*@Html.ActionLink("Güncelle", "AdminMakaleGuncelle", "AdminMakale", new { id = item.MakalelerID }, new {@class="btn btn-block btn-warning btn-sm"})*@
+                                    </td>
+                                    <td>
+                                        @*@Html.ActionLink("Sil", "#", "", new { @class = "btn btn-block btn btn-danger" })*@
+                                    <a href='~/AdminPanel/AdminMakale/AdminMakaleSil/@item.MakalelerID' class='btn btn-sm btn-danger'><i class='fas fa-trash'></i></a>
+                                </td>
+                            </tr>
+                        }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@section addBottomLibrary{
+    <!-- DataTables  & Plugins -->
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/jszip/jszip.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src=" ~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE App -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+@model IEnumerable<Yorumlar>
+@{
+    ViewBag.Title = "AdminYorumlarIndex";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">
+                    <a href="~/AdminPanel/AdminYazarlar/AdminYorumEkle" class="btn btn-success">Yeni Yorum Ekle</a>
+                </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Yorumlar</a></li>
+                    <li class="breadcrumb-item active">Yorumlar Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body ">
+                        <table class="table table-success" id="example1">
+                            <thead>
+                                <tr>
+                                    <th>Yorumlar ID</th>
+                                    <th width="500">Yorum</th>
+                                    <th>Yorum Tarihi</th>
+                                    <th>Üst Yorum ID</th>
+                                    <th>Aktif Mi</th>
+                                    <th>Güncelle</th>
+                                    <th>Sil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.YorumlarID</td>
+                                        @{
+                                            string yorumlar = item.Yorum;
+                                            if (yorumlar.Length > 100)
+                                            {
+                                                yorumlar = yorumlar.Substring(0,50);
+                                                <td>@yorumlar @Html.ActionLink("Oku", "", "",new { @class = "btn btn-primary"})</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@yorumlar</td>
+                                            }
+                                        }
+                                        <td>@item.YorumTarihi</td>
+                                        <td>@item.UstYorumID</td>
+                                        <td>@item.AktifMi</td>
+                                        <td>
+                                            @Html.ActionLink("Güncelle", "AdminYorumGuncelle", "AdminYorumlar", new {id=item.YorumlarID}, new { @class = "btn btn-block btn-warning btn-sm", @style = "max-width:150px" })
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Sil", "AdminYorumSil", "AdminYorumlar", new {id=item.YorumlarID},new { @class = "btn btn-block btn-danger btn-sm", @style = "max-width:150px" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

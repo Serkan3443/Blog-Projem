@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "MakalelerIndex";
+}
+
+<!-- ======= Blog Section ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+
+
+            <ol>
+                <li><a href="~/Anasayfa/AnasayfaIndex">Anasayfa</a></li>
+                <li>Makaleler</li>
+            </ol>
+        </div>
+
+
+    </div>
+
+</section>
+<!-- ======= Blog Section ======= -->
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+            @Html.Partial("_Makaleler")
+            <div class="col-md-3 col-sm3">
+                @Html.Partial("_Kategoriler")
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div class="blog-pagination">
+        <ul class="justify-content-center">
+            <li><a href="#">1</a></li>
+            <li class="active"><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+        </ul>
+    </div>
+
+</section><!-- End Blog Section -->
+<!-- ======= Our Portfolio Section ======= -->
+
+@section MenuSecimi{
+    <script>
+        document.getElementById("makale").setAttribute("style", "color:blue");
+    </script>
+}

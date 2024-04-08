@@ -1,0 +1,112 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+<!--Ben bu kodları blog-single.html den aldım ve bu Partial sayfasını MakaleDetay sayfasında tanımladım yorumları arayüzde görüntülemek adına-->
+<div class="comments" id="yorumAlani">
+    <!--Burda id=yorumAlani vermemim sebebi herhangi bir makaleye bir yorum yapmak istediğimde yorumumu yayınlaması için bu id`yi önce yorumlar.js de oluşturdum ve daha sonra burada tanımladım-->
+    <!--BURASI YORUM SAYFASI İÇİN BAAŞLIKTIR-->
+    <h5 class="comments-count">Yorumlar</h5>
+    @{
+        string makaleId =TempData["makaleID"].ToString();
+    }
+
+    <input type="text" id="makaleID" name="name" value="@makaleId" hidden />@*Yaptığımız yorumun kaydedlmesi için bu inputu kullandık makaleId yorumlar.js den aldım çünkü yapacağım yorumu kaydetmek için js de gerekli kodlamaları yaptım*@
+
+    @foreach (var item in (List<Sp_YorumlarDOM>)TempData["makaleYorumlariGetir"])
+    {
+        //makaleId = item.Makaleler_MakalelerID;
+
+        if (item.UstYorumID == 0)//Anayorumları getirir bana çünkü anayorumların id si 0 olarak verilmişti
+        {
+
+            <!--YAPILAN İLK YORUM ALANI-->
+            <div id="comment-1" class="comment">
+                <div class="d-flex">
+                    <div class="comment-img"><img src="~/template/Moderna/assets/img/blog/comments-1.jpg" alt=""></div>
+                    <div>
+                        <h5><a href="#">@(item.Adi+" "+item.Soyadi)</a> <a href="#" class="reply"><i class="bi bi-reply-fill"></i> Cevapla</a></h5>
+                        <time datetime="2020-01-01">@item.YorumTarihi</time>
+                        <div class="comment-body">
+                            @item.Yorum
+                        </div>
+
+
+
+                        <!--***********************ALT YORUMLARIN LİSTESİ*********************-->
+                        @foreach (var itemAltYorum in (List<Sp_YorumlarDOM>)TempData["makaleAltYorumlariGetir"])
+                        {
+                            if (itemAltYorum.UstYorumID == item.YorumlarID)//Bir üstID değeri, bir yorumunID değerine eşit ise o yorumu yapılmış bir alt yorum olduğunu gösterir
+                            {
+
+
+                                <div class="reply d-flex mb-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm rounded-circle">
+                                            <img class="avatar-img img-fluid" src="~/template//Moderna/assets/img/blog/comments-3.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2 ms-sm-3">
+                                        <div class="reply-meta d-flex align-items-baseline">
+                                            <h6 class="mb-0 me-2">Brandon Smith</h6>
+                                            <span class="text-muted">2d</span>
+                                        </div>
+                                        <div class="reply-body">
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--YAPILAN İLK YORUM SONU-->
+        }
+
+
+    }
+</div><!-- End blog comments -->
+    <!--Bu if komutunu oluşturmamın sebebi eğer kullanıcı adı boş değilse yani kayıtlı bir kullanıcı varsa yorum yapma hakkına sahip olsun-->
+    @if (Session["userName"] != null)
+    {
+
+
+        <div class="col-lg-12">
+            <h5 class="comment-title">Leave a Comment</h5>
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="comment-name">Name</label>
+                    <input type="text" class="form-control" id="comment-name" placeholder="Enter your name">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="comment-email">Email</label>
+                    <input type="text" class="form-control" id="comment-email" placeholder="Enter your email">
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="comment-message">Message</label>
+
+                    <textarea class="form-control" id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
+                </div>
+                <div class="col-12">
+                    <input type="submit" onclick="YorumKaydet()" class="btn btn-success" value="Yorum Gönder">
+                </div>
+            </div>
+        </div>
+
+    }
+    //Kayıtlı bir kullanıcı yoksa Yorum Yap butonuna tıklayıp login sayfasına yölnedirsin ve kullanıcı kayıt olduktan sonera yorum yapabilsin else de bu analamı ifade ediyor
+    else
+    {
+        <div class="col-12">
+            @Html.ActionLink("Yorum Yap", "GirisIndex", "Kullanici", new { id = makaleId }, new { @class = "btn btn-danger" })
+        </div>
+    }
+
+
+
+
+
+
+
+
+

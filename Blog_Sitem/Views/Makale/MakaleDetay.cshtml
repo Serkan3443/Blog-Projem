@@ -1,0 +1,124 @@
+﻿@model BlogSitem.DLL.BlogSiteDatabase.Sp_MakaleListesiDOM
+@{
+    ViewBag.Title = "MakaleDetay";
+  
+}
+@section MenuSecimi{
+    <script>
+        document.getElementById("makale").setAttribute("style", "color:blue");
+    </script>
+    }
+
+@section kategoriGoster{
+    <script src="~/Areas/AdminPanel/AdminLTE/docs/assets/plugins/jquery/jquery.js"></script>
+    }
+<!-- ======= Blog Section ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Makale Detay</h2>
+
+            <ol>
+                <li><a href="~/Anasayfa/AnasayfaIndex">Anasayfa</a></li>
+                <li><a href="~/Makale/MakaleDetay">Makale Detay</a></li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Blog Section -->
+<!-- ======= Blog Single Section ======= -->
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            <div class="col-lg-8 entries">
+                <article class="entry entry-single">
+                <!--Buraya bu kodları kendim yazdım çünkü kendi oluşturduğum makaleleri veritabanından arayüze yansıtmak için Bu komut satırlarını kodlamam lazım-->
+                    <div class="single-post">
+                        <div class="blog-author d-flex align-items-center">
+                            <img src="~/template/Moderna/assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
+                            <div>
+                                <h4>@Model.YazarAdSoyad</h4>
+                                <div class="social-links">
+                                    <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                                    <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                                    <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- End blog author bio -->
+
+                        <div class="post-meta"><span class="date" style="color:darkcyan">@Model.YazarAdSoyad</span> <span class="mx-1">&bullet;</span> <br /><span style="color:darkcyan">@Model.YayinlanmaTarihi</span></div>
+                        <h1 class="mb-5" style="color:darkcyan">@Model.MakaleBaslik</h1>
+                        @Html.Raw(Model.MakaleIcerik)
+                    </div>
+                </article><!-- End blog entry -->
+                   <!---Yorumlar Burada yani bu partial view de görüntütlenecek-->
+                    @Html.Partial("_YorumlarPartialView")
+                   <!------------------------------------------------------------->
+              
+            </div><!-- End blog entries list -->
+
+            <div class="col-lg-4">
+
+                <div class="sidebar">
+
+                    <h3 class="sidebar-title">Search</h3>
+                    <div class="sidebar-item search-form">
+                        <form action="">
+                            <input type="text">
+                            <button type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </div><!-- End sidebar search formn-->
+
+                    <h3 class="sidebar-title">Categories</h3>
+                    <div class="sidebar-item categories">
+                        <ul>
+                            <li><a href="#">General <span>(25)</span></a></li>
+                            <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                            <li><a href="#">Travel <span>(5)</span></a></li>
+                            <li><a href="#">Design <span>(22)</span></a></li>
+                            <li><a href="#">Creative <span>(8)</span></a></li>
+                            <li><a href="#">Educaion <span>(14)</span></a></li>
+                        </ul>
+                    </div><!-- End sidebar categories-->
+
+                    <h3 class="sidebar-title">VİDEO</h3>
+                    <div class="sidebar-item recent-posts">
+                        <div class="post-item clearfix">
+                            <img src="~/template/Moderna/assets/img/blog/blog-recent-1.jpg" alt="">
+                            <h4><a href="https://youtu.be/S8huVe0wBEs?si=x1pzgue8UB2o8d-9">Uludağ Kayak Tatili</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+                    </div><!-- End sidebar recent posts-->
+
+                    <h3 class="sidebar-title">Tags</h3>
+                    <div class="sidebar-item tags">
+                        <ul>
+                            <li><a href="#">App</a></li>
+                            <li><a href="#">IT</a></li>
+                            <li><a href="#">Business</a></li>
+                            <li><a href="#">Mac</a></li>
+                            <li><a href="#">Design</a></li>
+                            <li><a href="#">Office</a></li>
+                            <li><a href="#">Creative</a></li>
+                            <li><a href="#">Studio</a></li>
+                            <li><a href="#">Smart</a></li>
+                            <li><a href="#">Tips</a></li>
+                            <li><a href="#">Marketing</a></li>
+                        </ul>
+                    </div><!-- End sidebar tags-->
+
+                </div><!-- End sidebar -->
+
+            </div><!-- End blog sidebar -->
+
+        </div>
+
+    </div>
+</section><!-- End Blog Single Section -->
+
+<!--Yorumlar ile ilgili bir js sayfası açtım ilgili kodları yazdım ve bağlantısını bu sayfaya bu şekilde verdim-->
+
+    <script src="~/SiteScript/yorumlar.js"></script>

@@ -1,0 +1,76 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+@model List<Kullanicilar>
+@{
+    ViewBag.Title = "AdminKullaniciIndex";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            @Html.ActionLink("Kullanıcı Ekle", "AdminKullaniciEkle", "AdminKullanici", new { @class = "btn btn-block btn-success col-md-3" })
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Kullanıcılar</a></li>
+                <li class="breadcrumb-item active">Kullanıcı Listesi</li>
+            </ol>
+        </div>
+    </div>
+</div>
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-primary" id="example1">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Adı</th>
+                                    <th>Soyadı</th>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Kullanıcı Şifre</th>
+                                    <th>Eklenme Tarihi</th>
+                                    <th>Pasiflik Tarihi</th>
+                                    <th>Aktif Mi</th>
+                                    <th>Yazar Mı</th>
+                                    <th>Güncelle</th>
+                                    <th>Sil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.KullanicilarID</td>
+                                        <td>@item.Adi</td>
+                                        <td>@item.Soyadi</td>
+                                        <td>@item.KullaniciAdi</td>
+                                        <td>@item.KullaniciSifresi</td>
+                                        <td>@item.EklenmeTarihi</td>
+                                        <td>@item.PasiflikTarihi</td>
+                                        <td>@item.AktifMi</td>
+                                        <td>@item.YazarMi</td>
+                                        
+                                        <td>
+                                            <a href="~/AdminPanel/AdminKullanici/AdminKullaniciGuncelle/@item.KullanicilarID" class="btn btn-block btn-warning btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Sil", "AdminKullaniciSil", "AdminKullanici", new {id=item.KullanicilarID}, new {@class="btn btn-block btn-danger btn-sm",@style="max-width:150px;"})
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

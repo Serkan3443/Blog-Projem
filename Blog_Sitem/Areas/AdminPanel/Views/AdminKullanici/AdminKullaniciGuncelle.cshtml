@@ -1,0 +1,132 @@
+﻿@model BlogSitem.DLL.BlogSiteDatabase.Kullanicilar
+
+@{
+    ViewBag.Title = "AdminKullaniciGuncelle";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">
+                </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/AdminPanel/AdminKullanici/AdminKullaniciIndex">Kullanıcılar</a></li>
+                    <li class="breadcrumb-item active">Kullanıcı Güncelle</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.KullanicilarID)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Adi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input type="text" name="Adi" class="form-control" id="Adi" value="@Model.Adi" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Soyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input type="text" name="Soyadi" id="Soyadi" class="form-control" value="@Model.Soyadi" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.KullaniciAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input type="text" id="kullaniciAdi" name="kullaniciAdi" class="form-control" value="@Model.KullaniciAdi" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.KullaniciSifresi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                       <div class="form-group">
+                                           <input type="text" id="sifre" name="sifre" value="@Model.KullaniciSifresi" class="form-control" />
+                                       </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EklenmeTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.EklenmeTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EklenmeTarihi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PasiflikTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.PasiflikTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PasiflikTarihi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label>Aktif Mi</label>
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.AktifMi)
+                                            @Html.ValidationMessageFor(model => model.AktifMi, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label>Yazar Mi</label>
+                                        <div class="checkbox">
+                                            @Html.EditorFor(model => model.YazarMi)
+                                            @Html.ValidationMessageFor(model => model.YazarMi, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Güncelle" class="btn btn-warning" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

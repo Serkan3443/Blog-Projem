@@ -1,0 +1,129 @@
+﻿@model BlogSitem.DLL.BlogSiteDatabase.Menu
+@{
+    ViewBag.Title = "AdminMenuEkle";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section addTopLibrary{
+
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+    <!--Bu linki açıklama kısmı için ekledim summernote dir bu-->
+
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 offset-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/AdminPanel/AdminMenuler/AdminMenulerIndex">Menüler</a></li>
+                    <li class="breadcrumb-item active">Menü Ekle</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Menü Ekle</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="menuEkleForm" action="/AdminPanel/AdminMenuler/AdminMenuEkle" method="post">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="menuAdi">Menü Adı</label>
+                                <input type="text" name="name" id="menuAdi" class="form-control" placeholder="Menü Adı" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ustMenuID">Üst Menü ID</label>
+                                <input type="text" name="ustMenuID" id="ustMenuID" class="form-control" placeholder="Üst Menü ID" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aktifMi">Aktif Mi</label>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.AktifMi)
+                                        @Html.ValidationMessageFor(model => model.AktifMi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputMenuAciklama">Açıklama</label>
+                                <textarea id="aciklama" name="aciklama"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="footer">
+                            <button type="submit" class="btn btn-primary">Ekle</button>
+                        </div>
+
+                        <div>
+                            @Html.Raw(ViewBag.mesaj)
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section addBottomLibrary{
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
+    <script>$(function () {
+            // Summernote
+            $('#aciklama').summernote()
+
+        })</script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/jquery-validation/jquery.validate.js"></script>
+    <script>$(function () {
+
+            $('#menuEkleForm').validate({
+                rules: {
+                    menuAdi: {
+                        required: true
+                    },
+                    ustMenuID: {
+                        required: true
+                    },
+                    aciklama: {
+                        required: true
+                    }
+
+                },
+                messages: {
+                    menuAdi: {
+                        required: "Menü adı alanı zorunludur"
+                    },
+                    ustMenuID: {
+                        required: "Üst menü ID alanı zorunludur"
+                    },
+                    aciklama: {
+                        required: "aciklama alanı zorunludur"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });</script>
+}

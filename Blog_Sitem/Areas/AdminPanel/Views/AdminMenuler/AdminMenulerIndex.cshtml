@@ -1,0 +1,119 @@
+﻿@using BlogSitem.DLL.BlogSiteDatabase
+@model List<Sp_MenuListesiDOM>
+@{
+    ViewBag.Title = "AdminMenulerIndex";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section addTopLibrary{
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Theme style -->
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                @Html.ActionLink("Menü Ekle", "AdminMenuEkle", "AdminMenuler", new { @class = "btn btn-block btn-success col-md-3" })
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Menüler</a></li>
+                    <li class="breadcrumb-item active">Menü Listesi</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-success" id="example1">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Menü Adı</th>
+                                    <th>Üst Menü ID</th>
+                                    <th>Aktif Mi</th>
+                                    <th>Açıklama</th>
+                                    <th>Güncelle</th>
+                                    <th>Sil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>@item.MenulerID</td>
+                                        <td>@item.MenuAdi</td>
+                                        <td>@item.UstMenuID</td>
+                                        <td>@item.AktifMi</td>
+                                        <td>@item.Aciklama</td>
+                                        <td>
+                                            @Html.ActionLink("Güncelle", "AdminMenuGuncelle", "AdminMenuler", new { id = item.MenulerID }, new { @class = "btn btn-block btn-warning btn-sm", @style = "max-width:150px" })
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink("Sil", "AdminMenuSil", "AdminMenuler", new { id = item.MenulerID }, new { @class = "btn btn-danger" })
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section addBottomLibrary{
+
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/jszip/jszip.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/Areas/AdminPanel/AdminLTE/dist/js/adminlte.min.js"></script>
+    <script>$(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": [
+                    "copy",
+                    // "csv",
+                    "excel",
+                    "pdf",
+                    "print",
+                    "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });</script>
+
+}
